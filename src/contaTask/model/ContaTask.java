@@ -1,8 +1,8 @@
-package conta.model;
+package contaTask.model;
 
 public class ContaTask {
 
-	private String titular;
+	String titular;
 	private float saldo;
 	
 	
