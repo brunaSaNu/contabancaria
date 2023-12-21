@@ -3,6 +3,7 @@ package conta;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import conta.controller.ContaController;
 import conta.model.Conta;
 import conta.model.ContaCorrente;
 import conta.model.ContaPoupanca;
@@ -10,17 +11,8 @@ import conta.model.ContaPoupanca;
 public class Menu {
 
 	public static void main(String[] args) {
-		
-		ArrayList<Conta> contas = new ArrayList<Conta>();
-		
-		ContaPoupanca cpou01 = new ContaPoupanca("Ygona Moura", 0.5f);
-		ContaCorrente cc01 = new ContaCorrente("Maria José", 15254.0f);
-		ContaCorrente cc02 = new ContaCorrente("Inês Brasil", 145232.02f);
-		
-		contas.add(cpou01);
-		contas.add(cc01);
-		contas.add(cc02);
-		
+		ContaController contaController = new ContaController();
+
 		int opcao = -1;
 		Scanner scan = new Scanner (System.in);
 		Scanner leia = new Scanner (System.in);
@@ -51,47 +43,42 @@ public class Menu {
 				
 				if (tipo == 1) {
 					ContaCorrente conta = new ContaCorrente(nome, saldo);
-					contas.add(conta);
+					contaController.cadastrar(conta);
 				} else {
 					ContaPoupanca conta = new ContaPoupanca(nome, saldo);
-					contas.add(conta);
+					contaController.cadastrar(conta);
 				}
 				System.out.println("Conta adicionada com sucesso!");
 				
 			}
 			
 			if (opcao == 2) {
-				for(Conta n: contas) {
-					System.out.println(n.getTitular() + " - R$" + n.getSaldo());	
+				ArrayList<Conta> contas = contaController.listarTodas();
+				for(int i = 0; i < contas.size(); i++) {
+					Conta n = contas.get(i);
+					System.out.println(i + " - " + n.getTitular()+ " - R$" + n.getSaldo());
 				}
 			}
 			
 			if (opcao == 3) {
-				for(int i = 0; i < contas.size(); i++) {
-					Conta n = contas.get(i);
-					System.out.println(i + " - " + n.getTitular());
-				}
 				System.out.println("Digite o número correspondente ao cliente: ");
 				int clienteAAlterar = scan.nextInt();
 				
 				System.out.println("Digite o novo saldo: ");
 				float novoSaldo = scan.nextFloat();
 				
-				Conta cliente = contas.get(clienteAAlterar);
-				
+				Conta cliente = contaController.procurarPorNumero(clienteAAlterar);
 				cliente.setSaldo(novoSaldo);
+				
+				contaController.atualizar(cliente, clienteAAlterar);
 				System.out.println("Saldo alterado com sucesso!");
 			}
 			
 			if(opcao == 4) {
-				for(int i = 0; i < contas.size(); i++) {
-					Conta n = contas.get(i);
-					System.out.println(i + " - " + n.getTitular());
-				}
 				System.out.println("Digite o número correspondente ao cliente: ");
 				int clienteARemover = scan.nextInt();
 				
-				contas.remove(clienteARemover);
+				contaController.deletar(clienteARemover);
 				System.out.println("Conta removida com sucesso!");
 			}
 			
