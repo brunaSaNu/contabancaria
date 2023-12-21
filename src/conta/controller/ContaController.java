@@ -37,7 +37,25 @@ public class ContaController {
 	}
 	public void deletar(int numero) {
 		contas.remove(numero);
+	}
+	public float sacar (int numero, float valor) {
+		Conta conta = contas.get(numero);
+		float novoSaldo = conta.getSaldo() - valor;
+		conta.setSaldo(novoSaldo);
+		return novoSaldo;
+	}
+	public float depositar (int numero, float valor) {
+		Conta conta = contas.get(numero);
+		float novoSaldo = conta.getSaldo() + valor;
+		conta.setSaldo(novoSaldo);
+		return novoSaldo;
 		
 	}
+	public void transferir (int numeroOrigem, int numeroDestino, float valor) {
+		Conta contaOrigem = contas.get(numeroOrigem);
+		Conta contaDestino = contas.get(numeroDestino);
+		contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
+		contaDestino.setSaldo(contaDestino.getSaldo() + valor);
+	} 
 
 }

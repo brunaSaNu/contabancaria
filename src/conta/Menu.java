@@ -25,6 +25,9 @@ public class Menu {
 			System.out.println(" 2 - Listar todas as contas do banco KitCopo");
 			System.out.println(" 3 - Alterar saldo de uma conta");
 			System.out.println(" 4 - Remover conta do banco KitCopo");
+			System.out.println(" 5 - Sacar");
+			System.out.println(" 6 - Depositar");
+			System.out.println(" 7 - Transferir");
 			System.out.println(" 0 - Sair");
 			System.out.println("**************************************************");
 			System.out.println();
@@ -80,6 +83,42 @@ public class Menu {
 				
 				contaController.deletar(clienteARemover);
 				System.out.println("Conta removida com sucesso!");
+			}
+			
+			if(opcao == 5) {
+				System.out.println("Digite o número da conta: ");
+				int numeroConta = scan.nextInt();
+				
+				System.out.println("Digite o valor que deseja sacar: ");
+				float saque = scan.nextFloat();
+				float novoSaldo = contaController.sacar(numeroConta, saque);
+				System.out.println("Seu saldo após o saque: " + novoSaldo);
+			}
+			
+			if(opcao == 6) {
+				System.out.println("Digite o número da conta: ");
+				int numeroConta = scan.nextInt();
+				
+				System.out.println("Digite o valor de seu depósito: ");
+				float deposito = scan.nextFloat();
+				System.out.println("Você adicionou " + deposito + " seu saldo é de: R$");
+				float novoSaldo = contaController.depositar(numeroConta, deposito);
+				System.out.println("Seu saldo após o depósito: " + novoSaldo);
+			}
+			
+			if(opcao == 7) {
+				System.out.println("Digite o número da sua conta: ");
+				int numeroOrigem = scan.nextInt();
+				System.out.println("Digite o número da conta para qual que deseja enviar o dinheiro");
+				int numeroDestino = scan.nextInt();
+				
+				System.out.println("Digite o valor que deseja transferir");
+				float transferencia = scan.nextFloat();
+				
+				contaController.transferir(numeroOrigem, numeroDestino, transferencia);
+				
+				System.out.println("Transferência realizada com sucesso!");
+				
 			}
 			
 		} while (opcao != 0);
