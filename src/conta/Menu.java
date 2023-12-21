@@ -4,12 +4,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import conta.model.Conta;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
 
 public class Menu {
 
 	public static void main(String[] args) {
 		
 		ArrayList<Conta> contas = new ArrayList<Conta>();
+		
+		ContaPoupanca cpou01 = new ContaPoupanca("Ygona Moura", 0.5f);
+		ContaCorrente cc01 = new ContaCorrente("Maria José", 15254.0f);
+		ContaCorrente cc02 = new ContaCorrente("Inês Brasil", 145232.02f);
+		
+		contas.add(cpou01);
+		contas.add(cc01);
+		contas.add(cc02);
+		
 		int opcao = -1;
 		Scanner scan = new Scanner (System.in);
 		Scanner leia = new Scanner (System.in);
@@ -32,13 +43,19 @@ public class Menu {
 				System.out.println("Digite o nome do cliente: ");
 				String nome = leia.nextLine();
 				
-				System.out.println("Conta corrente, poupança ou comum? ");
-				String tipo = leia.nextLine();
+				System.out.println("Tipo da conta:\n1 - Corrente\n2 - Poupança");
+				int tipo = scan.nextInt();
 				
 				System.out.println("Saldo: ");
 				float saldo = scan.nextFloat();
-				Conta conta = new Conta(tipo, nome, saldo);
-				contas.add(conta);
+				
+				if (tipo == 1) {
+					ContaCorrente conta = new ContaCorrente(nome, saldo);
+					contas.add(conta);
+				} else {
+					ContaPoupanca conta = new ContaPoupanca(nome, saldo);
+					contas.add(conta);
+				}
 				System.out.println("Conta adicionada com sucesso!");
 				
 			}

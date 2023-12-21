@@ -1,22 +1,12 @@
 package conta.model;
 
-public class Conta {
-	private String tipo;
+public abstract class Conta {
 	private String titular;
 	private float saldo;
 	
-	public Conta (String tipo, String titular, float saldo) {
-		this.tipo = tipo;
+	public Conta (String titular, float saldo) {
 		this.titular = titular;
 		this.saldo = saldo;	
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public String getTitular() {
