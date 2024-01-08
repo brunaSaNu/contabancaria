@@ -5,57 +5,46 @@ import java.util.ArrayList;
 import conta.model.Conta;
 import conta.model.ContaCorrente;
 import conta.model.ContaPoupanca;
+import conta.repository.ContaRepository;
+import conta.repository.IContaRepository;
 
 public class ContaController {
 	
-	private ArrayList<Conta> contas;
+	private IContaRepository contaRepository;
 	
 	public ContaController() {
-		contas = new ArrayList<Conta>();
-		
-		ContaPoupanca cpou01 = new ContaPoupanca("Ygona Moura", 0.5f);
-		ContaCorrente cc01 = new ContaCorrente("Maria José", 15254.0f);
-		ContaCorrente cc02 = new ContaCorrente("Inês Brasil", 145232.02f);
-		
-		contas.add(cpou01);
-		contas.add(cc01);
-		contas.add(cc02);
+		contaRepository = new ContaRepository();
 	}
 	
 	public Conta procurarPorNumero(int numero) {
-		return contas.get(numero);
+		return contaRepository.procurarPorNumero(numero);
 	}
+
 	public ArrayList<Conta> listarTodas() {
-		return contas;
+		return contaRepository.listarTodas();
 	}
+	
 	public void cadastrar(Conta conta) {
-		contas.add(conta);
+		contaRepository.cadastrar(conta);
 		
 	}
 	public void atualizar(Conta conta, int numero) {
-		contas.set(numero, conta);
+		contaRepository.atualizar(conta, numero);
 	}
 	public void deletar(int numero) {
-		contas.remove(numero);
+		contaRepository.deletar(numero);
 	}
+
 	public float sacar (int numero, float valor) {
-		Conta conta = contas.get(numero);
-		float novoSaldo = conta.getSaldo() - valor;
-		conta.setSaldo(novoSaldo);
-		return novoSaldo;
+		return contaRepository.sacar(numero, valor);
 	}
+
 	public float depositar (int numero, float valor) {
-		Conta conta = contas.get(numero);
-		float novoSaldo = conta.getSaldo() + valor;
-		conta.setSaldo(novoSaldo);
-		return novoSaldo;
-		
+		return contaRepository.depositar(numero, valor);
 	}
+
 	public void transferir (int numeroOrigem, int numeroDestino, float valor) {
-		Conta contaOrigem = contas.get(numeroOrigem);
-		Conta contaDestino = contas.get(numeroDestino);
-		contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
-		contaDestino.setSaldo(contaDestino.getSaldo() + valor);
+		contaRepository.transferir(numeroOrigem, numeroDestino, valor);
 	} 
 
 }

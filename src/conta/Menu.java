@@ -101,7 +101,6 @@ public class Menu {
 				
 				System.out.println("Digite o valor de seu depósito: ");
 				float deposito = scan.nextFloat();
-				System.out.println("Você adicionou " + deposito + " seu saldo é de: R$");
 				float novoSaldo = contaController.depositar(numeroConta, deposito);
 				System.out.println("Seu saldo após o depósito: " + novoSaldo);
 			}
